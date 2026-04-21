@@ -75,6 +75,14 @@ npx expo start --web
 
 ---
 
+## Download APK
+
+> **[⬇ Download latest APK]()**
+>
+> _(link will be added once the build is ready)_
+
+---
+
 ## Build APK (Android)
 
 ```bash
