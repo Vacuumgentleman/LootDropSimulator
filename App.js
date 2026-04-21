@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,7 @@ import LootResult from './components/LootResult';
 import LootHistory from './components/LootHistory';
 import StatsPanel from './components/StatsPanel';
 import { openLootBoxes, validateInput } from './utils/lootLogic';
+import { loadSounds, playSound, unloadSounds } from './utils/soundManager';
 
 const HISTORY_LIMIT = 20;
 
@@ -35,6 +36,11 @@ export default function App() {
 
   const buttonScaleAnim = useRef(new Animated.Value(1)).current;
 
+  useEffect(() => {
+    loadSounds();
+    return () => { unloadSounds(); };
+  }, []);
+
   const handleOpenChest = useCallback(() => {
     const validation = validateInput(inputValue);
     if (!validation.valid) {
@@ -43,6 +49,7 @@ export default function App() {
     }
     setInputError('');
     setIsOpening(true);
+    playSound('open');
 
     Animated.sequence([
       Animated.timing(buttonScaleAnim, { toValue: 0.91, duration: 80, useNativeDriver: true }),
@@ -55,6 +62,7 @@ export default function App() {
       const newItems = openLootBoxes(amount);
       const latestItem = newItems[newItems.length - 1];
 
+      playSound(latestItem.rarity);
       setLastItem(latestItem);
       setAnimKey(k => k + 1);
       setHistory(prev => [...newItems].reverse().concat(prev).slice(0, HISTORY_LIMIT));
@@ -75,6 +83,7 @@ export default function App() {
   }, [inputValue]);
 
   const handleReset = useCallback(() => {
+    playSound('reset');
     setHistory([]);
     setLastItem(null);
     setStats(INITIAL_STATS);
