@@ -80,7 +80,7 @@ npx expo start --web
 > **[⬇ Download latest APK](https://expo.dev/accounts/thevacuumgentleman/projects/loot-drop-simulator/builds/f41c86d1-4355-4993-a3f1-c811d4b70f3d)**
 > <img width="258" height="258" alt="LootDropSimulator_Donwload_QR" src="https://github.com/user-attachments/assets/80f16e5d-8d58-4f86-ab99-7249201a92f9" />
 
-> [_(Click To Donwload)_](https://expo.dev/accounts/thevacuumgentleman/projects/loot-drop-simulator/builds/f41c86d1-4355-4993-a3f1-c811d4b70f3d)
+> [_(Click To Donwload)_](https://github.com/Vacuumgentleman/LootDropSimulator/releases/download/v1.0/LootDropSimulator.apk)
 
 ---
 
