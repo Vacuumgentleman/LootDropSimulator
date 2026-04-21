@@ -1,6 +1,5 @@
 import { Audio } from 'expo-av';
 
-// Local WAV files bundled with the app — no internet required
 const SOUND_FILES = {
   open:   require('../assets/sounds/open.wav'),
   Common: require('../assets/sounds/common.wav'),
@@ -15,9 +14,12 @@ let _ready = false;
 export async function loadSounds() {
   try {
     await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
       playsInSilentModeIOS: true,
       staysActiveInBackground: false,
+      shouldDuckAndroid: false, // no bajar volumen cuando hay otro audio
     });
+
     await Promise.all(
       Object.entries(SOUND_FILES).map(async ([key, src]) => {
         try {
@@ -26,15 +28,12 @@ export async function loadSounds() {
             { shouldPlay: false, volume: 1.0 }
           );
           _sounds[key] = sound;
-        } catch {
-          // fallo silencioso por archivo individual
-        }
+        } catch {}
       })
     );
+
     _ready = true;
-  } catch {
-    // fallo silencioso global
-  }
+  } catch {}
 }
 
 export async function playSound(key) {
@@ -42,7 +41,11 @@ export async function playSound(key) {
   const sound = _sounds[key];
   if (!sound) return;
   try {
-    await sound.replayAsync();
+    const status = await sound.getStatusAsync();
+    if (!status.isLoaded) return;
+    // setStatusAsync es atómico: seek a 0 + play en una sola operación,
+    // más fiable que replayAsync() en Android
+    await sound.setStatusAsync({ positionMillis: 0, shouldPlay: true });
   } catch {}
 }
 
