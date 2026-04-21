@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Loot Drop Simulator",
+    "slug": "loot-drop-simulator",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "platforms": ["ios", "android", "web"],
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0a0a18"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.lootdrop.simulator"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0a0a18"
+      },
+      "package": "com.lootdrop.simulator"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": []
+  }
+}
